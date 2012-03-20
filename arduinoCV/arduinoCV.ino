@@ -1,5 +1,6 @@
 // change the pwm duty cycle as needed (0-255)
-int pwm = 127;
+int pwm = 0;
+int timer = 20;
 
 void setup()
 {
@@ -10,11 +11,15 @@ void setup()
   TCCR2A = _BV(COM2A1) | _BV(COM2B1) | _BV(WGM21) | _BV(WGM20);
   TCCR2B = _BV(CS20);
   
-  // duty cycle defined at the top of code
   OCR2A = pwm;
 }
 
 void loop()
 {
-  OCR2A = pwm;  
+  // loop the duty cycle from 0-255.
+  for(int i = 0; i <= 255; i++) {
+    pwm = i;
+    OCR2A = pwm;
+    delay(timer);
+  }
 }
